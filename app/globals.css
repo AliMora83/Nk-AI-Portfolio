@@ -3,30 +3,17 @@
 @tailwind utilities;
 
 @layer base {
-  :root, [data-theme="dark"] {
-    --bg:       #0A0705;
-    --surface:  #120D0A;
-    --card:     #1C1410;
-    --border:   #2A1F18;
-    --paper:    #F7F2EA;
-    --muted:    #8A7060;
-    --rust:     #B84A2F;
-    --amber:    #D4903A;
-    --sage:     #4A7A4A;
-    --gold:     #C9A84C;
-  }
-
-  [data-theme="light"] {
-    --bg:       #FAF6EE;
-    --surface:  #F0E8D8;
-    --card:     #FFFFFF;
-    --border:   #E0D4C0;
-    --paper:    #1C1410;
-    --muted:    #7A5C44;
-    --rust:     #B84A2F;
-    --amber:    #C47A20;
-    --sage:     #3A6A3A;
-    --gold:     #A07830;
+  :root {
+    --bg: #FAF6EE;
+    --surface: #F0E8D8;
+    --card: #FFFFFF;
+    --border: #E0D4C0;
+    --paper: #1C1410;
+    --muted: #7A5C44;
+    --rust: #B84A2F;
+    --amber: #C47A20;
+    --sage: #3A6A3A;
+    --gold: #A07830;
   }
 }
 
@@ -34,6 +21,7 @@
   * {
     border-color: var(--border);
   }
+
   body {
     background-color: var(--bg);
     color: var(--paper);
@@ -41,7 +29,8 @@
   }
 }
 
-a, button {
+a,
+button {
   transition: all 0.2s ease;
 }
 
@@ -55,7 +44,13 @@ a, button {
   body {
     cursor: none;
   }
-  a, button, [role="button"], input, textarea, select {
+
+  a,
+  button,
+  [role="button"],
+  input,
+  textarea,
+  select {
     cursor: none;
   }
 }
@@ -63,13 +58,16 @@ a, button {
 ::-webkit-scrollbar {
   width: 8px;
 }
+
 ::-webkit-scrollbar-track {
   background: var(--bg);
 }
+
 ::-webkit-scrollbar-thumb {
   background: var(--surface);
   border-radius: 4px;
 }
+
 ::-webkit-scrollbar-thumb:hover {
   background: var(--border);
 }
@@ -78,6 +76,7 @@ a, button {
   0% {
     transform: translateX(0);
   }
+
   100% {
     transform: translateX(-50%);
   }

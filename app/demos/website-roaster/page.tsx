@@ -12,6 +12,7 @@ import { motion, AnimatePresence } from "framer-motion";
 
 export default function WebsiteRoaster() {
     const [url, setUrl] = useState("");
+    const [email, setEmail] = useState("");
     const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
     const [result, setResult] = useState<any>(null);
     const [loadingText, setLoadingText] = useState("Analyzing visual hierarchy...");
@@ -67,8 +68,19 @@ Based on typical patterns for this type of website/URL, provide a detailed audit
             const jsonMatch = data.text.match(/\{[\s\S]*\}/);
             if (!jsonMatch) throw new Error("Invalid format returned");
 
-            setResult(JSON.parse(jsonMatch[0]));
+            const parsed = JSON.parse(jsonMatch[0]);
+            setResult(parsed);
             setStatus("success");
+
+            fetch('/api/leads', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    url: url,
+                    result: parsed,
+                    email: email || ''
+                }),
+            }).catch(() => { });
         } catch (error) {
             clearInterval(interval);
             console.error(error);
@@ -106,23 +118,33 @@ Based on typical patterns for this type of website/URL, provide a detailed audit
 
                 {/* Input area */}
                 <RevealWrapper delay={0.1}>
-                    <form onSubmit={roastIt} className="flex flex-col sm:flex-row gap-4 max-w-2xl mb-16 relative z-20">
+                    <form onSubmit={roastIt} className="flex flex-col gap-4 max-w-2xl mb-16 relative z-20">
                         <input
-                            type="url"
-                            required
-                            value={url}
-                            onChange={(e) => setUrl(e.target.value)}
-                            placeholder="https://example.com"
-                            className="flex-1 bg-surface border border-border rounded-lg px-6 py-4 text-paper font-mono text-sm focus:border-rust focus:outline-none transition-colors"
+                            type="email"
+                            value={email}
+                            onChange={(e) => setEmail(e.target.value)}
+                            placeholder="Your email (optional — get personalised improvement tips)"
+                            className="w-full bg-surface border border-border rounded-lg px-6 py-4 text-paper font-mono text-sm focus:border-rust focus:outline-none transition-colors"
                             disabled={status === "loading"}
                         />
-                        <button
-                            type="submit"
-                            disabled={status === "loading" || !url}
-                            className="bg-rust border border-rust text-white font-syne font-bold px-8 py-4 rounded-lg hover:bg-rust/90 hover:-translate-y-1 hover:shadow-[0_10px_30px_-10px_rgba(184,74,47,0.5)] transition-all duration-300 disabled:opacity-70 disabled:hover:translate-y-0 flex items-center justify-center gap-2"
-                        >
-                            {status === "loading" ? <Loader2 className="animate-spin" /> : "🔥 Roast It"}
-                        </button>
+                        <div className="flex flex-col sm:flex-row gap-4">
+                            <input
+                                type="url"
+                                required
+                                value={url}
+                                onChange={(e) => setUrl(e.target.value)}
+                                placeholder="https://example.com"
+                                className="flex-1 bg-surface border border-border rounded-lg px-6 py-4 text-paper font-mono text-sm focus:border-rust focus:outline-none transition-colors"
+                                disabled={status === "loading"}
+                            />
+                            <button
+                                type="submit"
+                                disabled={status === "loading" || !url}
+                                className="bg-rust border border-rust text-white font-syne font-bold px-8 py-4 rounded-lg hover:bg-rust/90 hover:-translate-y-1 hover:shadow-[0_10px_30px_-10px_rgba(184,74,47,0.5)] transition-all duration-300 disabled:opacity-70 disabled:hover:translate-y-0 flex items-center justify-center gap-2"
+                            >
+                                {status === "loading" ? <Loader2 className="animate-spin" /> : "🔥 Roast It"}
+                            </button>
+                        </div>
                     </form>
                 </RevealWrapper>
 

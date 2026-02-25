@@ -2,7 +2,6 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
-import { ThemeToggle } from "./ui/ThemeToggle";
 import { Menu, X } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 
@@ -54,12 +53,10 @@ export function Nav() {
                         >
                             Hire Ali
                         </Link>
-                        <ThemeToggle />
                     </nav>
 
                     {/* Mobile Toggle */}
                     <div className="flex items-center gap-4 md:hidden">
-                        <ThemeToggle />
                         <button
                             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
                             className="text-paper hover:text-rust transition-colors"

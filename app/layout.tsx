@@ -1,7 +1,6 @@
 import "./globals.css";
 import type { Metadata } from "next";
 import { Syne, Instrument_Serif, IBM_Plex_Mono } from "next/font/google";
-import { ThemeProvider } from "@/components/ui/ThemeProvider";
 import { Cursor } from "@/components/ui/Cursor";
 
 const syne = Syne({
@@ -43,10 +42,8 @@ export default function RootLayout({
     return (
         <html lang="en" suppressHydrationWarning>
             <body className={`${syne.variable} ${instrument.variable} ${mono.variable} antialiased selection:bg-rust selection:text-paper`}>
-                <ThemeProvider attribute="data-theme" defaultTheme="dark">
-                    <Cursor />
-                    {children}
-                </ThemeProvider>
+                <Cursor />
+                {children}
             </body>
         </html>
     );
