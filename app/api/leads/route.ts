@@ -6,10 +6,7 @@ export async function POST(req: NextRequest) {
         const { url, result, email } = await req.json();
 
         const auth = new google.auth.GoogleAuth({
-            credentials: {
-                client_email: process.env.GOOGLE_SERVICE_ACCOUNT_EMAIL,
-                private_key: process.env.GOOGLE_PRIVATE_KEY?.replace(/\\n/g, '\n'),
-            },
+            credentials: JSON.parse(process.env.GOOGLE_CREDENTIALS_JSON || '{}'),
             scopes: ['https://www.googleapis.com/auth/spreadsheets'],
         });
 
