@@ -15,7 +15,7 @@ export function StatusBar() {
         We duplicate the items to create a seamless infinite scroll effect.
         A pure CSS animation on a wrapper container will translate it continuously.
       */}
-            <div className="flex animate-[scroll_20s_linear_infinite] shrink-0">
+            <div className="flex animate-[scroll_24s_linear_infinite] shrink-0">
                 {[...Array(4)].map((_, i) => (
                     <div key={i} className="flex items-center">
                         {items.map((item, idx) => (

@@ -16,7 +16,7 @@ export default function Home() {
             <div className="w-full">
                 <Hero />
                 <StatusBar />
-                <AuditSection />
+                {/* <AuditSection /> hidden per user request */}
                 <DemoGallery />
                 <ClientWork />
                 <AiStack />
